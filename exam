@@ -1,0 +1,44 @@
+package com.devcolibri.animationimage;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+
+public class MainActivity extends Activity {
+
+    // Создаем экземпляры для наших анимаций
+    private Animation animOne, animTwo, animThree;
+    private ImageView imageView;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main_layout);
+
+        imageView = (ImageView) findViewById(R.id.imageView);
+
+        // Подгружаем все анимации
+        animOne = AnimationUtils.loadAnimation(this, R.anim.animation_one);
+        animTwo = AnimationUtils.loadAnimation(this, R.anim.anumation_two);
+        animThree = AnimationUtils.loadAnimation(this, R.anim.animation_three);
+    }
+
+    // Анимация №1
+    public void onAnimationImageOne(View v){
+        imageView.startAnimation(animOne);
+    }
+
+    // Анимация №2
+    public void onAnimationImageTwo(View v){
+        imageView.startAnimation(animTwo);
+    }
+
+    // Анимация №3
+    public void onAnimationImageThree(View v){
+        imageView.startAnimation(animThree);
+    }
+
+}
