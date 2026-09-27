@@ -1,0 +1,63 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Cigs vs NVIDIA</title>
+<style>html,body{margin:0;background:#07090d}canvas{display:block;width:100vw;max-width:540px;margin:auto}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas><script>
+const W=1080,H=1920,FPS=30,DUR=15;
+const c=document.getElementById('c'),g=c.getContext('2d');
+// split-adjusted NVDA close (approx), [year, month(1-12), price]
+const K=[[2010,1,.46],[2010,4,.44],[2010,7,.25],[2010,10,.30],[2011,1,.38],[2011,4,.45],[2011,7,.36],[2011,10,.36],[2012,1,.35],[2012,4,.32],[2012,7,.30],[2012,10,.30],[2013,1,.31],[2013,4,.32],[2013,7,.35],[2013,10,.38],[2014,1,.39],[2014,4,.45],[2014,7,.45],[2014,10,.48],[2015,1,.50],[2015,4,.55],[2015,7,.50],[2015,10,.70],[2016,1,.73],[2016,4,.90],[2016,7,1.4],[2016,10,1.8],[2017,1,2.6],[2017,4,2.6],[2017,7,4.0],[2017,10,5.0],[2018,1,6.0],[2018,4,5.7],[2018,7,6.2],[2018,10,7.0],[2018,12,3.35],[2019,4,4.5],[2019,7,4.2],[2019,10,5.1],[2020,1,5.9],[2020,3,5.0],[2020,7,10.5],[2020,10,13.5],[2021,1,13],[2021,4,15],[2021,7,19.5],[2021,11,33],[2022,1,29],[2022,4,19],[2022,7,17.5],[2022,10,11.5],[2023,1,16],[2023,4,27.7],[2023,7,46],[2023,10,41],[2024,1,50],[2024,3,90],[2024,6,123],[2024,8,105],[2024,11,140],[2025,1,138],[2025,4,95],[2025,7,170],[2025,10,190],[2025,12,186]];
+const idx=([y,m])=>(y-2010)*12+m-1, N=idx([2025,12])+1;
+const price=[];for(let i=0;i<N;i++){let a=K.findLast(k=>idx(k)<=i),b=K.find(k=>idx(k)>=i);let ia=idx(a),ib=idx(b);let t=ib==ia?0:(i-ia)/(ib-ia);let w=Math.sin(i*1.7)*.035+Math.sin(i*.63)*.03;price.push(Math.exp(Math.log(a[2])*(1-t)+Math.log(b[2])*t)*(1+(ia==i||ib==i?0:w)))}
+let sh=0,cig=[],inv=[],sp=0;
+for(let i=0;i<N;i++){const pack=5.5+3.5*i/(N-1),mo=pack*30.4;sp+=mo;sh+=mo/price[i];cig.push(sp);inv.push(sh*price[i])}
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,eo=t=>1-Math.pow(1-t,3);
+const money=v=>(v=Math.abs(v)<1e-6?0:v,0)||v>=1e6?'$'+(v/1e6).toFixed(2)+'M':'$'+Math.round(v).toLocaleString('en-US');
+const T0=1.2,T1=12.6; // chart growth window
+function val(arr,f){const i=Math.floor(f),j=Math.min(N-1,i+1);return arr[i]+(arr[j]-arr[i])*(f-i)}
+function maxTo(arr,f){let m=0;for(let i=0;i<=Math.min(N-1,Math.ceil(f));i++)m=Math.max(m,arr[i]);return m}
+function renderAt(t){
+ const gp=clamp((t-T0)/(T1-T0)),f=Math.pow(gp,1.15)*(N-1);
+ g.fillStyle='#07090d';g.fillRect(0,0,W,H);
+ const bgG=g.createRadialGradient(W/2,1150,50,W/2,1150,1100);bgG.addColorStop(0,'rgba(118,185,0,0.10)');bgG.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=bgG;g.fillRect(0,0,W,H);
+ // title
+ const ta=eo(clamp(t/0.6));g.globalAlpha=ta;g.textAlign='center';g.fillStyle='#fff';g.font='800 64px Inter,DejaVu Sans,sans-serif';
+ g.fillText('1 pack of cigarettes a day',W/2,250-30*(1-ta));g.fillStyle='#8a93a3';g.font='600 44px DejaVu Sans,sans-serif';g.fillText('since 2010… or the same money',W/2,320-30*(1-ta));
+ g.fillStyle='#76b900';g.font='800 64px DejaVu Sans,sans-serif';g.fillText('into NVIDIA stock?',W/2,400-30*(1-ta));g.globalAlpha=1;
+ // chart area
+ const X0=90,X1=W-90,Y0=640,Y1=1560,cw=X1-X0,ch=Y1-Y0;
+ // camera: head centered, zooming out; final fit
+ const hv=val(inv,f),mx=Math.max(maxTo(inv,f),hv,1);
+ let vw=Math.max(14,f*2.05),vx=f-vw/2; let vh=Math.max(2600,mx*2.1),vy=hv-vh/2;
+ const fit=ease(clamp((t-T1)/1.1));
+ const fw=(N-1)*1.08,fx=-(N-1)*.02,fh=inv[N-1]*1.12,fy=-inv[N-1]*.04;
+ vw=vw+(fw-vw)*fit;vx=vx+(fx-vx)*fit;vh=vh+(fh-vh)*fit;vy=vy+(fy-vy)*fit;
+ const sx=i=>X0+(i-vx)/vw*cw, sy=v=>Y1-(v-vy)/vh*ch;
+ g.save();g.beginPath();g.rect(X0-40,Y0-40,cw+80,ch+80);g.clip();
+ // grid
+ const gstep=Math.pow(10,Math.floor(Math.log10(vh/4)));let st=gstep*(vh/gstep>20?5:vh/gstep>8?2:1);
+ g.font='500 26px DejaVu Sans,sans-serif';g.textAlign='left';
+ for(let v=Math.ceil(vy/st)*st;v<vy+vh;v+=st){if(v<0)continue;const y=sy(v);g.strokeStyle='rgba(255,255,255,.07)';g.lineWidth=2;g.beginPath();g.moveTo(X0-40,y);g.lineTo(X1+40,y);g.stroke();g.fillStyle='rgba(255,255,255,.35)';g.fillText(money(v),X0-30,y-8)}
+ g.textAlign='center';for(let y=2010;y<=2025;y++){const x=sx((y-2010)*12);if(x<X0-60||x>X1+60)continue;const pass=(y-2010)*12<=f;g.fillStyle=pass?'rgba(255,255,255,.45)':'rgba(255,255,255,.12)';if(vw<80||y%(vw>150?5:2)==0||y==2025)g.fillText(y,x,Y1+45)}
+ if(gp>0){
+  const n=Math.floor(f);
+  const line=(arr,col,wd,glow)=>{g.beginPath();for(let i=0;i<=n;i++){const x=sx(i),y=sy(arr[i]);i?g.lineTo(x,y):g.moveTo(x,y)}g.lineTo(sx(f),sy(val(arr,f)));g.strokeStyle=col;g.lineWidth=wd;g.lineJoin='round';g.shadowColor=col;g.shadowBlur=glow;g.stroke();g.shadowBlur=0};
+  // area under nvda
+  g.beginPath();g.moveTo(sx(0),sy(0));for(let i=0;i<=n;i++)g.lineTo(sx(i),sy(inv[i]));g.lineTo(sx(f),sy(hv));g.lineTo(sx(f),sy(0));g.closePath();
+  const ag=g.createLinearGradient(0,Y0,0,Y1);ag.addColorStop(0,'rgba(118,185,0,.35)');ag.addColorStop(1,'rgba(118,185,0,0)');g.fillStyle=ag;g.fill();
+  line(cig,'#ff4d5e',6,18);line(inv,'#8fe000',8,28);
+  const dot=(arr,col)=>{const x=sx(f),y=sy(val(arr,f)),p=1+.25*Math.sin(t*8);g.fillStyle=col;g.shadowColor=col;g.shadowBlur=30;g.beginPath();g.arc(x,y,13*p,0,7);g.fill();g.shadowBlur=0;g.fillStyle='#fff';g.beginPath();g.arc(x,y,6,0,7);g.fill()};
+  dot(cig,'#ff4d5e');dot(inv,'#8fe000');
+  // date tag near head
+  if(fit<1){const yr=2010+Math.floor(f/12),mo=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][Math.floor(f)%12];g.globalAlpha=1-fit;g.fillStyle='rgba(255,255,255,.9)';g.font='700 34px DejaVu Sans,sans-serif';g.fillText(mo+' '+yr,sx(f),Y0-10);g.globalAlpha=1}
+ }
+ g.restore();
+ // counters
+ const ca=eo(clamp((t-0.7)/0.6));g.globalAlpha=ca;
+ const box=(x,label,v,col)=>{g.fillStyle='rgba(255,255,255,.05)';g.strokeStyle=col+'66';g.lineWidth=3;g.beginPath();g.roundRect(x,470,440,130,24);g.fill();g.stroke();g.textAlign='center';g.fillStyle=col;g.font='600 28px DejaVu Sans,sans-serif';g.fillText(label,x+220,515);g.fillStyle='#fff';g.font='800 52px DejaVu Sans,sans-serif';g.fillText(money(v),x+220,580)};
+ box(80,'SPENT ON CIGARETTES',gp>0?val(cig,f):0,'#ff4d5e');box(560,'WORTH IN NVIDIA',gp>0?hv:0,'#8fe000');g.globalAlpha=1;
+ // final card
+ const fa=eo(clamp((t-13.3)/0.6));if(fa>0){g.globalAlpha=fa;g.fillStyle='rgba(7,9,13,.82)';g.beginPath();g.roundRect(90,1610-20*(1-fa),900,200,30);g.fill();g.strokeStyle='#8fe000';g.lineWidth=3;g.stroke();g.textAlign='center';g.fillStyle='#fff';g.font='700 40px DejaVu Sans,sans-serif';g.fillText('Same money. Different habit.',W/2,1680-20*(1-fa));g.fillStyle='#8fe000';g.font='800 62px DejaVu Sans,sans-serif';g.fillText((inv[N-1]/cig[N-1]).toFixed(0)+'× more',W/2,1765-20*(1-fa));g.globalAlpha=1}
+ g.textAlign='center';g.fillStyle='rgba(255,255,255,.28)';g.font='400 22px DejaVu Sans,sans-serif';g.fillText('Monthly buys Jan 2010 – Dec 2025, approx. split-adjusted prices. Not financial advice.',W/2,1880);
+}
+window.renderAt=renderAt;window.DATA={cig:cig[N-1],inv:inv[N-1]};
+if(!location.search.includes('render')){let s=performance.now();(function L(n){renderAt(((n-s)/1000)%DUR);requestAnimationFrame(L)})(s)}
+</script></body></html>
