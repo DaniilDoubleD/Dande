@@ -1,0 +1,72 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Coffee vs S&P 500</title>
+<style>html,body{margin:0;background:#0b0907}canvas{display:block;width:100vw;max-width:540px;margin:auto}</style></head>
+<body><canvas id="c" width="1080" height="1920"></canvas><script>
+const W=1080,H=1920,DUR=18,c=document.getElementById('c'),g=c.getContext('2d');
+const F='DejaVu Sans,sans-serif';
+// S&P 500 price index, approx key points [year, month, level]
+const K=[[2000,1,1394],[2000,3,1499],[2000,12,1320],[2001,9,1041],[2001,12,1148],[2002,7,912],[2002,10,815],[2002,12,880],[2003,12,1112],[2004,12,1212],[2005,12,1248],[2006,12,1418],[2007,10,1549],[2007,12,1468],[2008,6,1280],[2008,11,896],[2009,2,735],[2009,3,798],[2009,12,1115],[2010,12,1258],[2011,9,1131],[2011,12,1258],[2012,12,1426],[2013,12,1848],[2014,12,2059],[2015,12,2044],[2016,2,1932],[2016,12,2239],[2017,12,2674],[2018,9,2914],[2018,12,2507],[2019,12,3231],[2020,2,2954],[2020,3,2585],[2020,12,3756],[2021,12,4766],[2022,6,3785],[2022,9,3586],[2022,12,3840],[2023,12,4770],[2024,12,5882],[2025,3,5612],[2025,4,5569],[2025,6,6205],[2025,12,6850],[2026,6,7000]];
+const idx=([y,m])=>(y-2000)*12+m-1, N=idx([2026,6])+1;
+const spx=[];for(let i=0;i<N;i++){let a=K.findLast(k=>idx(k)<=i),b=K.find(k=>idx(k)>=i);const ia=idx(a),ib=idx(b),t=ib==ia?0:(i-ia)/(ib-ia);const w=(ia==i||ib==i)?0:Math.sin(i*1.9)*.012+Math.sin(i*.7)*.01;spx.push(Math.exp(Math.log(a[2])*(1-t)+Math.log(b[2])*t)*(1+w)*Math.exp(.018*i/12))} // + ~1.8%/yr dividends reinvested
+// avg cup of coffee (coffee-shop drip/americano), approx
+const CUPK=[[0,1.50],[60,1.75],[120,2.10],[180,2.60],[240,3.10],[264,3.75],[300,4.60],[N-1,5.25]];
+const cupAt=i=>{let a=CUPK.findLast(k=>k[0]<=i),b=CUPK.find(k=>k[0]>=i);const t=b[0]==a[0]?0:(i-a[0])/(b[0]-a[0]);return a[1]+(b[1]-a[1])*t};
+let sh=0,sp=0;const cof=[],inv=[];for(let i=0;i<N;i++){const mo=cupAt(i)*30.4;sp+=mo;sh+=mo/spx[i];cof.push(sp);inv.push(sh*spx[i])}
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,eo=t=>1-Math.pow(1-clamp(t),3),eb=t=>{t=clamp(t);const s=1.7;return 1+(s+1)*Math.pow(t-1,3)+s*Math.pow(t-1,2)};
+const money=v=>(v=Math.abs(v)<1e-6?0:v,0)||v>=1e6?'$'+(v/1e6).toFixed(2)+'M':'$'+Math.round(v).toLocaleString('en-US');
+const T0=1.3,T1=12.4;
+const val=(arr,f)=>{const i=Math.floor(f),j=Math.min(N-1,i+1);return arr[i]+(arr[j]-arr[i])*(f-i)};
+const maxTo=(arr,f)=>{let m=0;for(let i=0;i<=Math.min(N-1,Math.ceil(f));i++)m=Math.max(m,arr[i]);return m};
+const GREEN='#3ddc84',BROWN='#c8894e';
+function rr(x,y,w,h,r,fill,stroke,lw){g.beginPath();g.roundRect(x,y,w,h,r);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||3;g.stroke()}}
+function cup(x,y,s,steam,t){g.save();g.translate(x,y);g.scale(s,s);g.fillStyle='#fff';g.beginPath();g.moveTo(-40,-40);g.lineTo(40,-40);g.lineTo(32,40);g.lineTo(-32,40);g.closePath();g.fill();g.fillStyle=BROWN;g.fillRect(-38,-10,76,22);g.fillStyle='#e9e1d6';rr(-46,-52,92,16,6,'#e9e1d6');
+ if(steam){g.strokeStyle='rgba(255,255,255,.5)';g.lineWidth=5;g.lineCap='round';for(let k=0;k<3;k++){const o=(t*40+k*25)%60;g.globalAlpha=1-o/60;g.beginPath();g.moveTo(-18+k*18,-62-o);g.quadraticCurveTo(-28+k*18,-72-o,-18+k*18,-86-o);g.stroke()}g.globalAlpha=1}g.restore()}
+function renderAt(t){
+ const gp=clamp((t-T0)/(T1-T0)),f=Math.pow(gp,1.12)*(N-1);
+ g.fillStyle='#0b0907';g.fillRect(0,0,W,H);
+ const bgG=g.createRadialGradient(W/2,1150,50,W/2,1150,1100);bgG.addColorStop(0,'rgba(61,220,132,.09)');bgG.addColorStop(1,'rgba(0,0,0,0)');g.fillStyle=bgG;g.fillRect(0,0,W,H);
+ const ta=eo(t/.6);g.globalAlpha=ta;g.textAlign='center';
+ g.fillStyle='#fff';g.font=`800 62px ${F}`;g.fillText('1 cup of coffee a day',W/2,230-30*(1-ta));
+ g.fillStyle='#9a8f84';g.font=`600 42px ${F}`;g.fillText('since 2000… or the same money',W/2,300-30*(1-ta));
+ g.fillStyle=GREEN;g.font=`800 62px ${F}`;g.fillText('into the S&P 500?',W/2,375-30*(1-ta));g.globalAlpha=1;
+ // counters
+ const ca=eo((t-.6)/.6);g.globalAlpha=ca;
+ const box=(x,label,v,col)=>{rr(x,430,440,130,24,'rgba(255,255,255,.05)',col+'77',3);g.textAlign='center';g.fillStyle=col;g.font=`600 27px ${F}`;g.fillText(label,x+220,475);g.fillStyle='#fff';g.font=`800 52px ${F}`;g.fillText(money(v),x+220,540)};
+ box(80,'SPENT ON COFFEE',gp>0?val(cof,f):0,BROWN);box(560,'WORTH IN S&P 500',gp>0?val(inv,f):0,GREEN);
+ // year + cup price pill
+ const yr=2000+Math.floor(f/12),cp=cupAt(f);const pulse=Math.floor(f/12)!==Math.floor(Math.max(0,f-.8)/12)?1.06:1;
+ g.save();g.translate(W/2,625);g.scale(pulse,pulse);rr(-300,-44,600,88,44,'#1c1612',BROWN,3);cup(-240,0,.55,true,t);g.textAlign='left';g.fillStyle='#fff';g.font=`800 44px ${F}`;g.fillText(String(yr),-185,16);g.fillStyle='#6d6259';g.fillText('·',-55,16);g.fillStyle=BROWN;g.fillText('$'+cp.toFixed(2)+' / cup',-20,16);g.restore();g.globalAlpha=1;
+ // chart
+ const X0=90,X1=W-90,Y0=720,Y1=1580,cw=X1-X0,ch=Y1-Y0;
+ const hv=val(inv,f),mx=Math.max(maxTo(inv,f),hv,1);
+ let vw=Math.max(14,f*2.05),vx=f-vw/2,vh=Math.max(1800,mx*2.1),vy=hv-vh/2;
+ const fit=ease(clamp((t-T1)/1.1));const fw=(N-1)*1.08,fx=-(N-1)*.02,fh=inv[N-1]*1.12,fy=-inv[N-1]*.04;
+ vw+=(fw-vw)*fit;vx+=(fx-vx)*fit;vh+=(fh-vh)*fit;vy+=(fy-vy)*fit;
+ const sx=i=>X0+(i-vx)/vw*cw,sy=v=>Y1-(v-vy)/vh*ch;
+ g.save();g.beginPath();g.rect(X0-40,Y0-40,cw+80,ch+80);g.clip();
+ const gstep=Math.pow(10,Math.floor(Math.log10(vh/4)));const st=gstep*(vh/gstep>20?5:vh/gstep>8?2:1);
+ g.font=`500 26px ${F}`;g.textAlign='left';for(let v=Math.ceil(vy/st)*st;v<vy+vh;v+=st){if(v<0)continue;const y=sy(v);g.strokeStyle='rgba(255,255,255,.07)';g.lineWidth=2;g.beginPath();g.moveTo(X0-40,y);g.lineTo(X1+40,y);g.stroke();g.fillStyle='rgba(255,255,255,.35)';g.fillText(money(v),X0-30,y-8)}
+ g.textAlign='center';for(let y=2000;y<=2026;y++){const x=sx((y-2000)*12);if(x<X0-60||x>X1+60)continue;const pass=(y-2000)*12<=f;g.fillStyle=pass?'rgba(255,255,255,.45)':'rgba(255,255,255,.12)';if(vw<80||y%(vw>200?5:2)==0)g.fillText(y,x,Y1+45)}
+ // crash labels
+ [[2002,10,'Dot-com crash'],[2009,2,'2008 crisis'],[2020,3,'COVID']].forEach(([y,m,l])=>{const i=idx([y,m]);if(i>f||fit>.5||vw>170)return;const a=clamp((f-i)/6)*(1-fit*2);const x=sx(i),yy=sy(inv[i]);g.globalAlpha=a;g.fillStyle='#ff5a5a';g.font=`700 26px ${F}`;g.fillText('▼ '+l,x,yy+55);g.globalAlpha=1});
+ if(gp>0){const n=Math.floor(f);
+  const line=(arr,col,wd,glow)=>{g.beginPath();for(let i=0;i<=n;i++){const x=sx(i),y=sy(arr[i]);i?g.lineTo(x,y):g.moveTo(x,y)}g.lineTo(sx(f),sy(val(arr,f)));g.strokeStyle=col;g.lineWidth=wd;g.lineJoin='round';g.shadowColor=col;g.shadowBlur=glow;g.stroke();g.shadowBlur=0};
+  g.beginPath();g.moveTo(sx(0),sy(0));for(let i=0;i<=n;i++)g.lineTo(sx(i),sy(inv[i]));g.lineTo(sx(f),sy(hv));g.lineTo(sx(f),sy(0));g.closePath();const ag=g.createLinearGradient(0,Y0,0,Y1);ag.addColorStop(0,'rgba(61,220,132,.32)');ag.addColorStop(1,'rgba(61,220,132,0)');g.fillStyle=ag;g.fill();
+  line(cof,BROWN,6,18);line(inv,GREEN,8,28);
+  const dot=(arr,col)=>{const x=sx(f),y=sy(val(arr,f)),p=1+.25*Math.sin(t*8);g.fillStyle=col;g.shadowColor=col;g.shadowBlur=30;g.beginPath();g.arc(x,y,13*p,0,7);g.fill();g.shadowBlur=0;g.fillStyle='#fff';g.beginPath();g.arc(x,y,6,0,7);g.fill()};
+  dot(cof,BROWN);dot(inv,GREEN);}
+ g.restore();
+ // result card
+ const fa=eo((t-13.1)/.5);if(fa>0&&t<15.6){g.globalAlpha=fa*(1-clamp((t-15.3)/.3));rr(90,1620,900,190,30,'rgba(11,9,7,.85)',GREEN,3);g.textAlign='center';g.fillStyle='#fff';g.font=`700 40px ${F}`;g.fillText('Same money. Different habit.',W/2,1690);g.fillStyle=GREEN;g.font=`800 60px ${F}`;g.fillText('+'+money(inv[N-1]-cof[N-1])+' difference',W/2,1775);g.globalAlpha=1}
+ // CTA
+ if(t>15.4){const a=eb((t-15.4)/.45);g.fillStyle=`rgba(11,9,7,${.75*clamp((t-15.4)/.4)})`;g.fillRect(0,0,W,H);g.save();g.translate(W/2,960);g.scale(a,a);
+  g.textAlign='center';g.fillStyle='#fff';g.font=`800 60px ${F}`;g.fillText('Want more money',0,-150);g.fillText('facts like this?',0,-75);
+  const press=t>16.6&&t<16.85?.92:1;g.save();g.scale(press,press);const sub=t>16.75;rr(-280,0,560,130,65,sub?'#3a3a3a':'#ff0033');g.fillStyle='#fff';g.font=`800 52px ${F}`;g.fillText(sub?'SUBSCRIBED ✓':'SUBSCRIBE',0,84);g.restore();
+  // cursor
+  const cx=320-Math.min(1,(t-15.9)/.7)*260,cy=260-Math.min(1,(t-15.9)/.7)*170;if(t>15.9){g.fillStyle='#fff';g.strokeStyle='#000';g.lineWidth=4;g.beginPath();g.moveTo(cx,cy);g.lineTo(cx,cy+70);g.lineTo(cx+18,cy+54);g.lineTo(cx+34,cy+86);g.lineTo(cx+46,cy+80);g.lineTo(cx+30,cy+48);g.lineTo(cx+54,cy+48);g.closePath();g.fill();g.stroke()}
+  if(t>16.75){const r=(t-16.75)*500;g.strokeStyle=`rgba(255,255,255,${clamp(1-(t-16.75)*2)})`;g.lineWidth=6;g.beginPath();g.arc(0,65,r,0,7);g.stroke()}
+  g.fillStyle='#9a8f84';g.font=`600 34px ${F}`;g.fillText('New money facts every week',0,230);g.restore()}
+ g.textAlign='center';g.fillStyle='rgba(255,255,255,.28)';g.font=`400 21px ${F}`;g.fillText('Monthly buys Jan 2000 – Jun 2026, approx. prices, dividends reinvested. Not financial advice.',W/2,1880);
+}
+window.renderAt=renderAt;window.DATA={cof:cof[N-1],inv:inv[N-1]};
+if(!location.search.includes('render')){let s=performance.now();(function L(n){renderAt(((n-s)/1000)%DUR);requestAnimationFrame(L)})(s)}
+</script></body></html>
