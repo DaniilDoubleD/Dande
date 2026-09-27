@@ -4,5 +4,5 @@ const b=await chromium.launch();const p=await b.newPage({viewport:{width:1080,he
 await p.goto('file://'+process.cwd()+'/'+(process.argv[2]||'index.html')+'?render');
 console.log(await p.evaluate(()=>window.DATA));
 fs.mkdirSync('frames',{recursive:true});
-for(let i=0;i<450;i++){const d=await p.evaluate(t=>{renderAt(t);return document.getElementById('c').toDataURL('image/png')},i/30);fs.writeFileSync(`frames/f${String(i).padStart(4,'0')}.png`,Buffer.from(d.split(',')[1],'base64'))}
+const NF=+(process.argv[3]||450);for(let i=0;i<NF;i++){const d=await p.evaluate(t=>{renderAt(t);return document.getElementById('c').toDataURL('image/png')},i/30);fs.writeFileSync(`frames/f${String(i).padStart(4,'0')}.png`,Buffer.from(d.split(',')[1],'base64'))}
 await b.close();
