@@ -1,0 +1,116 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Brain On Sale</title><style>html,body{margin:0;background:#0f1224}canvas{display:block;width:100vw;max-width:540px;margin:auto}</style></head><body><canvas id="c" width="1080" height="1920"></canvas><script>
+const ENV=[0.002, 0.306, 0.88, 0.628, 0.594, 0.368, 0.417, 0.857, 0.571, 0.45, 0.224, 0.246, 1, 1, 0.442, 0.369, 0.336, 0.609, 1, 1, 0.726, 0.028, 0.088, 0.509, 0.525, 0.534, 0.36, 0.267, 0.263, 0.082, 0.519, 0.623, 0.647, 0.356, 0.294, 0.303, 0.224, 0.922, 0.589, 0.601, 0.625, 0.66, 0.446, 0.232, 0.363, 0.573, 0.336, 0.194, 0.129, 0.503, 0.912, 0.972, 0.904, 0.938, 0.75, 0.449, 0.224, 0.118, 0.085, 0.078, 0.032, 0.005, 0.006, 0.008, 0.009, 0.011, 0.011, 0.012, 0.008, 0.009, 0.254, 0.603, 0.664, 0.594, 0.453, 0.651, 0.548, 0.378, 0.184, 0.479, 0.501, 0.511, 0.593, 0.6, 0.537, 0.767, 0.555, 0.588, 0.645, 0.587, 0.596, 0.448, 0.479, 0.314, 0.096, 0.061, 0.468, 1, 0.162, 0.079, 0.003, 0.167, 0.365, 0.147, 0.009, 0.189, 0.426, 0.27, 0.407, 0.402, 0.309, 0.424, 0.418, 0.194, 0.071, 0.019, 0.011, 0.002, 0.003, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.007, 0.058, 0.13, 0.839, 1, 1, 1, 0.483, 0.918, 0.293, 0.076, 0.173, 0.513, 0.568, 0.345, 0.249, 0.562, 0.679, 0.535, 0.307, 0.4, 0.681, 0.894, 1, 0.716, 0.392, 0.153, 0.408, 0.649, 0.488, 0.555, 0.482, 0.373, 0.178, 0.23, 0.393, 0.305, 0.346, 0.463, 0.448, 0.501, 0.537, 0.389, 0.052, 0.289, 0.527, 0.602, 0.987, 1, 0.388, 0.091, 0.015, 0.002, 0.016, 0.003, 0.003, 0.004, 0.005, 0.006, 0.007, 0.006, 0.005, 0.005, 0.002, 0.034, 0.353, 1, 1, 1, 1, 0.08, 0.003, 0.344, 0.847, 0.416, 0.503, 0.567, 0.524, 0.526, 0.55, 0.603, 0.571, 0.375, 0.152, 0.169, 0.154, 0.204, 0.589, 0.757, 0.843, 0.831, 0.584, 0.288, 0.181, 0.199, 0.382, 0.381, 0.67, 0.677, 0.518, 0.233, 0.074, 0.063, 0.034, 0.013, 0.003, 0.003, 0.004, 0.006, 0.008, 0.011, 0.011, 0.006, 0.006, 0.063, 0.47, 0.76, 0.984, 0.66, 0.62, 0.896, 1, 0.81, 0.845, 0.76, 0.647, 0.238, 0.009, 0.217, 0.141, 0.565, 0.963, 0.672, 0.588, 0.633, 0.299, 0.032, 0.152, 0.447, 0.452, 0.252, 0.16, 0.377, 0.478, 0.335, 0.242, 0.202, 0.365, 0.519, 0.56, 0.579, 0.609, 0.507, 0.461, 0.29, 0.16, 0.496, 0.595, 0.629, 0.646, 0.711, 0.599, 0.379, 0.162, 0.2, 0.179, 0.096, 0.052, 0.034, 0.029, 0.007, 0.002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.002, 0.293, 0.649, 0.654, 0.636, 0.641, 0.99, 0.88, 0.441, 0.102, 0.652, 0.833, 0.827, 0.889, 0.436, 0.835, 0.642, 0.403, 0.227, 0.308, 0.36, 0.474, 0.597, 0.457, 0.444, 0.478, 0.697, 0.603, 0.705, 0.763, 0.702, 0.541, 0.546, 0.442, 0.243, 0.268, 0.516, 0.528, 0.445, 0.353, 0.41, 0.489, 0.583, 0.659, 0.251, 0.09, 0.056, 0.034, 0.065, 0.055, 0.016, 0.002, 0.003, 0.005, 0.004, 0.006, 0.007, 0.009, 0.013, 0.014, 0.006, 0.004, 1, 1, 1, 0.963, 0.803, 0.78, 0.346, 0.098, 0.539, 0.51, 0.296, 0.568, 1, 1, 1, 0.748, 0.546, 0.398, 0.23, 0.055, 0.006, 0.594, 0.759, 0.698, 0.627, 0.539, 0.477, 0.282, 0.151, 0.163, 0.171, 0.122, 0.16, 0.436, 0.421, 0.348, 0.435, 0.266, 0.382, 0.562, 0.965, 1, 0.972, 0.311, 0.125, 0.065, 0.097, 0.064, 0.003, 0.048, 0.013, 0.004, 0.002, 0.008, 0.234, 0.669, 0.568, 0.281, 0.167, 0.483, 0.896, 0.932, 0.765, 0.731, 0.647, 0.66, 0.573, 0.676, 0.489, 0.142, 0.216, 0.459, 0.341, 0.218, 0.145, 0.086, 0.09, 0.164, 0.381, 0.203, 0.02, 0.004, 0.004, 0.4, 0.678, 0.849, 0.759, 0.208, 0.01, 0.003, 0.003, 0.089, 0.463, 0.558, 0.522, 0.356, 0.191, 0.114, 0.065, 0.043, 0.034, 0.031, 0.005, 0.002, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.003, 0.066, 0.465, 0.794, 0.689, 0.712, 0.853, 0.75, 0.409, 0.486, 0.783, 0.968, 0.923, 1.0, 1, 1, 0.571, 0.284, 0.602, 0.668, 0.335, 0.103, 0.031, 0.354, 0.536, 0.136, 0.158, 0.228, 0.578, 1, 1, 0.924, 0.568, 0.119, 0.151, 0.325, 0.291, 0.167, 0.078, 0.013, 0.004, 0.005, 0.006, 0.007, 0.006, 0.007, 0.006, 0.123, 0.529, 0.389, 0.247, 0.442, 1, 1, 0.546, 0.106, 0.581, 0.786, 0.664, 0.248, 0.339, 0.814, 0.446, 0.107, 0.806, 0.336, 0.052, 0.8, 0.947, 0.977, 0.585, 0.211, 0.084, 0.05, 0.028, 0.054, 0.059, 0.033, 0.008, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.074, 0.448, 0.701, 0.539, 1, 0.866, 0.754, 0.838, 0.387, 0.557, 0.481, 0.397, 1, 1, 0.828, 0.751, 0.826, 0.457, 0.189, 0.123, 0.107, 0.765, 0.814, 0.157, 0.043, 0.072, 0.377, 0.38, 0.326, 0.362, 1, 1, 1, 1, 1, 1, 0.408, 0.304, 0.186, 0.119, 0.125, 0.086, 0.273, 0.167, 0.011, 0.013, 0.012, 0.01, 0.007, 0.004, 0.004, 0.029, 0.372, 0.64, 0.669, 0.988, 0.349, 0.008, 0.662, 1, 0.795, 0.501, 0.208, 0.085, 0.107, 0.112, 1, 1, 0.602, 0.14, 0.081, 0.006, 0.148, 0.357, 0.189, 0.059, 0.063, 0.032, 0.005, 0.002, 0.002, 0.001, 0.002, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.029, 0.226, 0.143, 0.112, 1, 1, 1, 0.998, 0.993, 0.774, 0.711, 0.555, 0.425, 0.162, 0.17, 1, 0.981, 0.783, 0.598, 0.323, 0.199, 0.517, 0.429, 0.762, 0.664, 0.562, 0.572, 0.181, 0.014, 0.147, 0.141, 0.776, 0.903, 1, 1, 0.622, 0.325, 0.365, 0.176, 0.116, 0.02, 0.03, 0.282, 0.357, 0.09, 0.007, 0.008, 0.009, 0.008, 0.008, 0.006, 0.006, 0.005, 0.243, 0.698, 0.732, 0.613, 0.624, 0.456, 0.42, 1, 1, 0.941, 1, 0.357, 0.264, 0.72, 0.742, 0.638, 0.265, 0.051, 0.084, 0.108, 0.09, 0.203, 0.512, 0.446, 0.443, 0.688, 0.42, 0.244, 0.199, 0.117, 0.051, 0.053, 0.022, 0.01, 0.002, 0.002, 0.002, 0.001, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];const LINES=[[0, 4.03, "This is what happens inside your brain when you see minus fifty percent."], [4.33, 10.07, "First, your reward center lights up. Dopamine floods in. The same chemical behind gambling."], [10.37, 15.94, "Then the scarcity alarm goes off. Only today! Only three left! Your brain hears: act now."], [16.24, 18.97, "And your logic department? It gets switched off."], [19.27, 22.09, "You didn't save fifty dollars. You spent fifty."], [22.39, 25.48, "Stores don't sell products. They sell that feeling."]];
+const W=1080,H=1920,DUR=26,c=document.getElementById('c'),g=c.getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),eo=t=>1-Math.pow(1-clamp(t),3),eio=t=>{t=clamp(t);return t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2},eb=t=>{t=clamp(t);const s=1.7;return 1+(s+1)*Math.pow(t-1,3)+s*Math.pow(t-1,2)};
+const F='DejaVu Sans,sans-serif';
+const C={bg:'#0f1224',bg2:'#1a1f3d',pink:'#ff8fb1',pinkD:'#e0668f',yel:'#ffd23f',red:'#ff4d5e',blue:'#4da3ff',ink:'#0f1224',white:'#f6f4ff'};
+function rr(x,y,w,h,r,fill,stroke,lw){g.beginPath();g.roundRect(x,y,w,h,r);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||4;g.stroke()}}
+function circ(x,y,r,f){g.beginPath();g.arc(x,y,r,0,7);g.fillStyle=f;g.fill()}
+function txt(s,x,y,size,col,w=800,al='center'){g.font=`${w} ${size}px ${F}`;g.fillStyle=col;g.textAlign=al;g.fillText(s,x,y)}
+// camera keyframes [time, x, y, zoom]
+const CAM=[[0,0,0,.62],[3.6,0,0,.62],[4.6,-300,-150,1.55],[10.0,-300,-150,1.65],[10.8,300,-150,1.55],[15.9,300,-150,1.65],[16.7,0,230,1.6],[19.1,0,230,1.7],[22.3,0,40,.62],[26,0,40,.58]];
+function cam(t){let i=0;while(i<CAM.length-2&&t>CAM[i+1][0])i++;const a=CAM[i],b=CAM[i+1];const p=eio((t-a[0])/(b[0]-a[0]));return [a[1]+(b[1]-a[1])*p,a[2]+(b[2]-a[2])*p,a[3]+(b[3]-a[3])*p]}
+function brain(t){
+ // outer brain shape
+ g.save();g.fillStyle=C.pink;g.beginPath();
+ const bumps=[[-560,-60,230],[-360,-300,230],[-60,-400,250],[260,-360,240],[520,-150,230],[560,160,210],[300,380,230],[-60,440,240],[-400,360,230],[-600,140,200]];
+ bumps.forEach(([x,y,r])=>{g.moveTo(x+r,y);g.arc(x,y,r,0,7)});g.fill();
+ g.strokeStyle=C.pinkD;g.lineWidth=14;g.lineCap='round';
+ [[-500,-200,-380,-120,-420,-20],[-200,-420,-150,-300,-220,-250],[150,-450,120,-330,200,-280],[480,-280,400,-200,470,-120],[600,50,520,90,560,180],[400,500,330,420,380,360],[-300,520,-250,430,-320,380],[-650,250,-560,200,-600,120]].forEach(([a,b,c2,d,e,f])=>{g.beginPath();g.moveTo(a,b);g.quadraticCurveTo(c2,d,e,f);g.stroke()});
+ g.restore();
+ // interior panel (cross-section)
+ rr(-620,-360,1240,820,70,'#23284d');
+ // pipes connecting rooms
+ g.strokeStyle='#3a4178';g.lineWidth=26;g.beginPath();g.moveTo(-300,40);g.lineTo(-300,120);g.lineTo(0,120);g.lineTo(300,120);g.lineTo(300,40);g.moveTo(0,120);g.lineTo(0,100);g.stroke();
+ // flowing dots in pipes
+ for(let k=0;k<10;k++){const p=((t*.35+k/10)%1);const x=-300+600*p;circ(x,120,7,'rgba(255,255,255,.35)')}
+ rewardRoom(t);alarmRoom(t);logicRoom(t);
+}
+function roomFrame(x,y,w,h,col,label,dark){rr(x-w/2,y-h/2,w,h,36,dark?'#11142a':'#1a1f3d',col,8);rr(x-110,y-h/2-26,220,52,26,col);txt(label,x,y-h/2+10,28,C.ink)}
+function rewardRoom(t){
+ const x=-300,y=-150,on=t>4.8;const glow=on?.55+.2*Math.sin(t*6):0;
+ if(on){const rg=g.createRadialGradient(x,y,20,x,y,330);rg.addColorStop(0,`rgba(255,210,63,${glow})`);rg.addColorStop(1,'rgba(255,210,63,0)');g.fillStyle=rg;g.fillRect(x-340,y-340,680,680)}
+ roomFrame(x,y,480,340,C.yel,'REWARD');
+ // meter
+ const fill=eo((t-5.2)/3.2);rr(x-190,y-110,70,240,20,'#0c0f22',C.yel,5);rr(x-184,y+124-228*fill,58,228*fill,14,C.yel);txt('DOPAMINE',x-155,y+160,20,C.yel,700);
+ // tank with balls pouring
+ rr(x-80,y-110,260,240,24,'#0c0f22','#3a4178',5);
+ const n=Math.floor(clamp((t-5.4)/4)*40);g.save();g.beginPath();g.roundRect(x-78,y-108,256,236,22);g.clip();
+ for(let k=0;k<n;k++){const bt=t-5.4-k*.1;const col=k%7,row=Math.floor(k/7);const tx=x-55+col*36+(row%2)*16,ty=y+105-row*34;const yy=Math.min(ty,y-140+bt*700);circ(tx,yy,15,k%3?C.yel:'#ffe98a')}
+ g.restore();
+ // light bulbs row
+ for(let k=0;k<5;k++){const lit=on&&((Math.floor(t*6)+k)%2);circ(x-160+k*80,y-140,12,lit?C.yel:'#3a3f66')}
+ if(t>8.3&&t<10.3){const a=eb((t-8.3)/.3);g.save();g.translate(x+120,y-165);g.scale(a,a);g.rotate(.12);rr(-120,-34,240,68,34,C.red);txt('= GAMBLING',0,12,28,C.white);g.restore()}
+}
+function alarmRoom(t){
+ const x=300,y=-150,on=t>10.6;roomFrame(x,y,480,340,C.red,'ALARM',false);
+ if(on&&t<16.4){const fl=(Math.floor(t*5)%2)?.22:.06;g.fillStyle=`rgba(255,77,94,${fl})`;g.beginPath();g.roundRect(x-240,y-170,480,340,36);g.fill()}
+ // siren
+ rr(x-50,y-60,100,30,8,'#555a80');g.fillStyle=on?C.red:'#6b3040';g.beginPath();g.arc(x,y-60,48,Math.PI,0);g.fill();
+ if(on){g.save();g.translate(x,y-85);g.rotate(t*6);g.fillStyle='rgba(255,77,94,.35)';g.beginPath();g.moveTo(0,0);g.arc(0,0,260,-.25,.25);g.closePath();g.fill();g.rotate(Math.PI);g.beginPath();g.moveTo(0,0);g.arc(0,0,260,-.25,.25);g.closePath();g.fill();g.restore()}
+ // signs
+ const sign=(t0,dx,dy,rot,label,col)=>{if(t<t0)return;const a=eb((t-t0)/.3);g.save();g.translate(x+dx,y+dy);g.scale(a,a);g.rotate(rot);rr(-120,-32,240,64,14,col);txt(label,0,12,30,col==C.yel?C.ink:C.white);g.restore()};
+ sign(12.0,-100,40,-.1,'ONLY TODAY',C.yel);sign(13.1,100,95,.08,'3 LEFT!',C.red);
+ if(t>11.2){const s=Math.max(0,59-Math.floor((t-11.2)*9));rr(x+80,y-30,130,56,12,'#0c0f22',C.red,4);txt('00:'+String(s).padStart(2,'0'),x+145,y+10,30,C.red,700)}
+ if(t>14.4&&t<16.3){const a=eb((t-14.4)/.3);g.save();g.translate(x,y+175);g.scale(a,a);rr(-150,-36,300,72,36,C.white);txt('ACT NOW!',0,13,36,C.red);g.restore()}
+}
+function logicRoom(t){
+ const x=0,y=250,off=t>17.8;const d=clamp((t-17.8)/.25);roomFrame(x,y,560,300,C.blue,'LOGIC',off);
+ // monitor with calculator
+ rr(x-230,y-100,240,160,16,off?'#0c0f22':'#0d2744',C.blue,5);
+ if(!off||d<1){g.globalAlpha=1-d;txt('$100 − 50%',x-110,y-40,28,C.blue,700);txt('= $50',x-110,y,34,C.white);txt('do I need it?',x-110,y+40,22,'#9cc8ff',600);g.globalAlpha=1}
+ // lever
+ rr(x+60,y-90,180,180,20,'#0c0f22','#3a4178',5);txt(off?'OFF':'ON',x+150,y+75,26,off?C.red:C.blue);
+ const ang=off?.6:-.6;g.save();g.translate(x+150,y+30);g.rotate(ang*eo(off?d*4:1));g.strokeStyle='#c9ccdc';g.lineWidth=14;g.beginPath();g.moveTo(0,0);g.lineTo(0,-90);g.stroke();circ(0,-95,20,off?C.red:C.blue);g.restore();circ(x+150,y+30,16,'#555a80');
+ // lamp
+ circ(x-235,y-120,14,off?'#333':C.blue);
+ if(off){g.fillStyle=`rgba(5,6,15,${.55*d})`;g.beginPath();g.roundRect(x-280,y-150,560,300,36);g.fill();if(t>18.1){txt('zzz',x-120,y-150+Math.sin(t*3)*6,30,'#6d77b8',700)}}
+}
+function receipt(t){
+ if(t<19.1||t>22.4)return;const a=eo((t-19.1)/.35),out=eo((t-22.0)/.4);
+ g.fillStyle=`rgba(15,18,36,${.75*a*(1-out)})`;g.fillRect(0,0,W,H);
+ g.save();g.translate(540,760+(1-a)*900-out*900);g.rotate(-.04);
+ rr(-280,-400,560,800,10,C.white);for(let k=0;k<14;k++){g.fillStyle=C.white;g.beginPath();g.moveTo(-280+k*40,400);g.lineTo(-260+k*40,428);g.lineTo(-240+k*40,400);g.fill()}
+ txt('RECEIPT',0,-320,44,C.ink);g.fillStyle='#ccc';g.fillRect(-230,-290,460,4);
+ [['Sneakers','$100'],['Discount −50%','−$50']].forEach(([l,v],i)=>{txt(l,-230,-220+i*70,32,'#444',600,'left');txt(v,230,-220+i*70,32,'#444',700,'right')});
+ g.fillStyle='#ccc';g.fillRect(-230,-110,460,4);
+ txt('SAVED',0,-30,40,'#888',700);txt('$50',0,50,80,'#2fbf71');
+ if(t>20.4){const s=eo((t-20.4)/.3);g.strokeStyle=C.red;g.lineWidth=12;g.beginPath();g.moveTo(-200,-60);g.lineTo(-200+400*s,70-130*(1-s));g.stroke()}
+ if(t>20.9){const s=eb((t-20.9)/.3);g.save();g.translate(0,200);g.scale(s,s);g.rotate(-.08);rr(-220,-70,440,140,20,null,C.red,10);txt('SPENT $50',0,22,60,C.red);g.restore()}
+ g.restore();
+}
+function intro(t){
+ if(t>4.2)return;const out=eo((t-3.2)/.8);
+ // price tag slams
+ const a=eb((t-.1)/.35);g.save();g.translate(540,620-out*300);g.scale(a*(1-out*.7),a*(1-out*.7));g.rotate(-.12+Math.sin(t*3)*.03);
+ g.fillStyle=C.red;g.beginPath();g.moveTo(-260,-150);g.lineTo(200,-150);g.lineTo(300,0);g.lineTo(200,150);g.lineTo(-260,150);g.closePath();g.fill();circ(190,0,22,C.bg);
+ txt('−50%',-40,50,150,C.white);g.restore();
+ // shockwave
+ if(t<1.2){const r=(t-.2)*1400;if(r>0){g.strokeStyle=`rgba(255,77,94,${clamp(1-t)})`;g.lineWidth=10;g.beginPath();g.arc(540,620,r,0,7);g.stroke()}}
+}
+function header(t){
+ const titles=[[0,4.3,'YOUR BRAIN ON SALE',C.white],[4.3,10.3,'1. REWARD',C.yel],[10.3,16.2,'2. ALARM',C.red],[16.2,19.2,'3. LOGIC',C.blue],[19.2,22.4,'THE RESULT',C.white],[22.4,26,'THEY SELL A FEELING',C.pink]];
+ const T=titles.find(x=>t>=x[0]&&t<x[1]);const a=eb((t-T[0])/.35);g.save();g.translate(540,150);g.scale(a,a);rr(-360,-56,720,100,50,'rgba(15,18,36,.85)',T[3],5);txt(T[2],0,16,50,T[3]);g.restore();
+}
+function caption(t){const L=LINES.find(l=>t>=l[0]&&t<l[1]+.25);if(!L)return;const words=L[2].split(' '),sp=(L[1]-L[0])/words.length,shown=Math.min(words.length,Math.floor((t-L[0])/sp)+1);
+ g.font=`800 50px ${F}`;const lines=[];let cur='';words.forEach(w=>{const tt=cur?cur+' '+w:w;if(g.measureText(tt).width>920){lines.push(cur);cur=w}else cur=tt});lines.push(cur);
+ let wi=0;lines.forEach((ln,li)=>{const y=1560+li*64;let x=540-g.measureText(ln).width/2;ln.split(' ').forEach(w=>{g.textAlign='left';g.lineWidth=10;g.strokeStyle=C.ink;g.strokeText(w,x,y);g.fillStyle=wi==shown-1?C.yel:wi<shown?C.white:'rgba(255,255,255,.3)';g.fillText(w,x,y);x+=g.measureText(w+' ').width;wi++})})}
+function renderAt(t){
+ const f=Math.min(ENV.length-1,Math.floor(t*30));
+ const bg=g.createLinearGradient(0,0,0,H);bg.addColorStop(0,C.bg2);bg.addColorStop(1,C.bg);g.fillStyle=bg;g.fillRect(0,0,W,H);
+ g.fillStyle='rgba(255,255,255,.04)';for(let x=0;x<W;x+=60)for(let y=0;y<H;y+=60)g.fillRect(x,y,3,3);
+ const [cx,cy,z]=cam(t);const shake=(t>10.6&&t<11.2)||(t>17.8&&t<18.1)?Math.sin(t*90)*6:0;
+ const bz=eb((t-2.6)/.7);g.save();g.translate(540+shake,900);g.scale(z*bz,z*bz);g.translate(-cx,-cy);if(bz>0)brain(t);g.restore();
+ // voice pulse ring
+ intro(t);receipt(t);
+ if(t>22.4){const a=eo((t-23.3)/.5);g.globalAlpha=a;rr(140,1300,800,110,55,C.pink);txt('Next sale: check the Logic room.',540,1368,34,C.ink,800);g.globalAlpha=1}
+ header(t);
+ const sg=g.createLinearGradient(0,1420,0,1700);sg.addColorStop(0,'rgba(15,18,36,0)');sg.addColorStop(.4,'rgba(15,18,36,.9)');g.fillStyle=sg;g.fillRect(0,1420,W,500);
+ caption(t);
+ // audio bar
+ const m=ENV[f];for(let k=0;k<9;k++){const h=8+m*50*Math.abs(Math.sin(k*1.7+t*9));rr(540-4*28+k*28-5,1830-h/2,10,h,5,'rgba(255,143,177,.6)')}
+ txt('@yourchannel',540,1895,24,'rgba(255,255,255,.3)',500);
+}
+window.renderAt=renderAt;
+if(!location.search.includes('render')){const s=performance.now();(function L(n){renderAt(((n-s)/1000)%DUR);requestAnimationFrame(L)})(s)}
+</script></body></html>
