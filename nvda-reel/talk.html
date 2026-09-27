@@ -1,0 +1,99 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Investor Talk</title><style>html,body{margin:0;background:#0d1020}canvas{display:block;width:100vw;max-width:540px;margin:auto}</style></head><body><canvas id="c" width="1080" height="1920"></canvas><script>
+const ENV=[0.001, 0.029, 0.08, 0.004, 1, 1, 0.894, 0.722, 0.137, 0.144, 0.448, 0.604, 0.08, 0.05, 0.426, 1, 1, 1, 1, 0.568, 0.445, 0.4, 0.18, 0.101, 0.079, 0.05, 0.006, 0.002, 0.003, 0.004, 0.005, 0.006, 0.006, 0.005, 0.003, 0.005, 0.117, 0.806, 1, 0.547, 0.45, 0.309, 0.548, 0.538, 0.37, 0.352, 0.255, 0.324, 1, 0.97, 0.272, 0.211, 0.406, 0.652, 0.578, 0.598, 0.519, 0.513, 0.483, 0.542, 0.518, 0.277, 0.426, 0.714, 0.606, 0.349, 0.408, 0.05, 0.065, 0.398, 0.394, 0.449, 0.23, 0.164, 0.165, 0.397, 0.719, 0.739, 0.665, 0.355, 0.407, 0.204, 0.146, 0.232, 0.134, 0.121, 0.194, 0.113, 0.049, 0.028, 0.019, 0.004, 0.002, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.002, 0.002, 0.103, 0.322, 0.183, 0.251, 0.729, 1, 0.996, 0.871, 0.547, 0.246, 0.702, 0.932, 0.531, 0.168, 0.157, 0.148, 0.942, 1, 0.668, 0.09, 0.112, 0.555, 0.537, 0.727, 0.425, 0.507, 0.449, 0.683, 0.676, 0.667, 0.424, 0.109, 0.034, 0.101, 0.366, 0.351, 0.426, 0.409, 0.388, 0.316, 0.192, 0.087, 0.408, 0.691, 0.924, 0.643, 0.312, 0.086, 0.358, 0.572, 0.501, 0.394, 0.053, 0.011, 0.012, 0.011, 0.01, 0.006, 0.118, 0.36, 0.528, 0.181, 0.199, 0.232, 0.155, 0.414, 0.395, 0.296, 0.153, 0.144, 0.107, 0.837, 0.496, 0.603, 0.557, 0.659, 0.315, 0.14, 0.145, 0.399, 0.547, 0.485, 0.494, 0.311, 0.114, 0.263, 0.232, 0.103, 0.043, 0.01, 0.004, 0.004, 0.003, 0.002, 0.002, 0.001, 0.381, 0.247, 0.887, 0.732, 0.6, 0.592, 0.499, 0.393, 0.379, 0.457, 0.457, 0.437, 0.313, 0.388, 0.4, 0.166, 0.111, 0.386, 0.346, 0.217, 0.136, 0.038, 0.026, 0.01, 0.003, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.07, 0.086, 0.257, 0.953, 0.899, 0.859, 0.661, 0.213, 0.16, 0.104, 0.163, 0.734, 0.949, 0.826, 0.855, 0.877, 0.873, 0.706, 0.585, 0.374, 0.54, 0.585, 0.328, 0.167, 0.074, 0.066, 0.05, 0.007, 0.004, 0.007, 0.007, 0.005, 0.004, 0.004, 0.003, 0.42, 0.077, 1, 0.958, 0.632, 0.642, 0.395, 0.191, 0.272, 0.151, 0.069, 0.402, 0.392, 0.224, 0.13, 0.099, 0.26, 0.622, 0.576, 0.494, 0.609, 0.609, 0.608, 0.45, 0.188, 0.405, 0.292, 0.348, 0.208, 0.516, 0.632, 0.555, 0.287, 0.099, 0.046, 0.027, 0.016, 0.005, 0.001, 0.001, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.001, 0.116, 0.625, 1, 0.406, 0.013, 0.011, 0.375, 0.677, 0.384, 0.577, 0.511, 0.492, 0.233, 0.158, 0.266, 0.648, 1, 1, 0.821, 0.345, 0.168, 0.067, 0.251, 0.343, 0.337, 0.202, 0.018, 0.003, 0.005, 0.005, 0.005, 0.005, 0.006, 0.005, 0.008, 0.41, 0.784, 0.8, 0.326, 0.223, 0.21, 0.335, 1, 0.986, 0.85, 0.617, 0.583, 0.836, 0.487, 0.603, 0.493, 0.398, 0.114, 0.086, 0.407, 0.587, 0.493, 0.517, 0.19, 0.276, 0.403, 0.128, 0.009, 0.165, 0.067, 0.399, 0.824, 1, 0.841, 0.441, 0.483, 0.54, 0.457, 0.367, 0.265, 0.09, 0.124, 0.135, 0.049, 0.02, 0.006, 0.002, 0.002, 0.002, 0.001, 0.001, 0.001, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.003, 0.095, 0.416, 0.244, 0.138, 1, 1, 1, 0.798, 0.212, 0.023, 0.407, 0.594, 0.591, 0.353, 1, 0.947, 0.881, 0.715, 0.434, 0.208, 0.124, 0.135, 0.102, 0.027, 0.005, 0.003, 0.003, 0.002, 0.002, 0.002, 0.001, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
+const W=1080,H=1920,c=document.getElementById('c'),g=c.getContext('2d');
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),eo=t=>1-Math.pow(1-clamp(t),3),eb=t=>{t=clamp(t);const s=1.7;return 1+(s+1)*Math.pow(t-1,3)+s*Math.pow(t-1,2)};
+const F='DejaVu Sans,sans-serif';
+const LINES=[[0,3.2,'Stop scrolling. This is what NOT investing costs you.'],[3.29,7.5,'A hundred bucks a month in the S&P 500, ten years ago...'],[7.63,10.25,'Twelve grand in. Twenty-three grand today.'],[10.37,13.35,'Kept it in cash? Inflation ate a quarter of it.'],[13.5,15,'Start today.']];
+function rr(x,y,w,h,r,fill,stroke,lw){g.beginPath();g.roundRect(x,y,w,h,r);if(fill){g.fillStyle=fill;g.fill()}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||4;g.stroke()}}
+function circ(x,y,r,f){g.beginPath();g.arc(x,y,r,0,7);g.fillStyle=f;g.fill()}
+function txt(s,x,y,size,col,w=800,al='center'){g.font=`${w} ${size}px ${F}`;g.fillStyle=col;g.textAlign=al;g.fillText(s,x,y)}
+function scene(t,mouth){
+ // room
+ const bg=g.createLinearGradient(0,0,0,1250);bg.addColorStop(0,'#1b2350');bg.addColorStop(1,'#2d2a5c');g.fillStyle=bg;g.fillRect(0,0,W,1250);
+ // window + skyline
+ rr(90,170,900,560,20,'#121838','#3b4380',10);
+ const sky=g.createLinearGradient(0,170,0,730);sky.addColorStop(0,'#ff8a5b');sky.addColorStop(.6,'#ff5f8f');sky.addColorStop(1,'#6b3fa0');g.save();g.beginPath();g.roundRect(100,180,880,540,14);g.clip();g.fillStyle=sky;g.fillRect(100,180,880,540);
+ circ(760,470,90,'rgba(255,230,160,.9)');
+ const bl=[[100,420,90],[190,360,70],[260,470,110],[370,300,80],[450,400,120],[570,330,70],[640,450,100],[740,380,90],[830,300,80],[910,420,80]];
+ bl.forEach(([x,y,w],i)=>{g.fillStyle=i%2?'#3a2466':'#2c1c55';g.fillRect(x,y,w,400);g.fillStyle='rgba(255,210,120,.55)';for(let yy=y+20;yy<720;yy+=36)for(let xx=x+14;xx<x+w-14;xx+=26)if((xx*7+yy*3+i)%5<2)g.fillRect(xx,yy,12,18)});
+ g.restore();g.fillStyle='#3b4380';g.fillRect(535,170,10,560);
+ // shelf plant
+ rr(820,760,120,110,14,'#c96f4a');g.fillStyle='#3fbf7f';for(let k=0;k<5;k++){g.save();g.translate(880,770);g.rotate(-1+k*.5+Math.sin(t*1.5+k)*.04);g.beginPath();g.ellipse(0,-70,24,70,0,0,7);g.fill();g.restore()}
+ // character
+ const bob=Math.sin(t*2.2)*5,cx=540,hy=560+bob;
+ // chair
+ rr(330,560,420,560,80,'#1a1d33');
+ // torso (suit)
+ g.fillStyle='#232a52';g.beginPath();g.moveTo(330,1100);g.quadraticCurveTo(340,760+bob,440,735+bob);g.lineTo(640,735+bob);g.quadraticCurveTo(740,760+bob,750,1100);g.fill();
+ g.fillStyle='#f4f1ea';g.beginPath();g.moveTo(480,735+bob);g.lineTo(600,735+bob);g.lineTo(540,900+bob);g.fill();
+ g.fillStyle='#e8b93a';g.beginPath();g.moveTo(528,760+bob);g.lineTo(552,760+bob);g.lineTo(562,880+bob);g.lineTo(540,905+bob);g.lineTo(518,880+bob);g.fill();
+ g.fillStyle='#1a1f40';g.beginPath();g.moveTo(470,735+bob);g.lineTo(540,905+bob);g.lineTo(500,960+bob);g.lineTo(430,760+bob);g.fill();g.beginPath();g.moveTo(610,735+bob);g.lineTo(540,905+bob);g.lineTo(580,960+bob);g.lineTo(650,760+bob);g.fill();
+ circ(660,800+bob,10,'#e8b93a');// pin
+ // neck head
+ rr(505,660+bob,70,90,20,'#d9a27c');
+ g.fillStyle='#e8b48c';g.beginPath();g.ellipse(cx,hy,105,125,0,0,7);g.fill();
+ circ(437,hy+10,22,'#d9a27c');circ(643,hy+10,22,'#d9a27c');
+ // beard
+ g.fillStyle='#3a2a22';g.beginPath();g.moveTo(438,hy+10);g.quadraticCurveTo(445,hy+140,540,hy+135);g.quadraticCurveTo(635,hy+140,642,hy+10);g.quadraticCurveTo(630,hy+80,540,hy+85);g.quadraticCurveTo(450,hy+80,438,hy+10);g.fill();
+ // hair
+ g.fillStyle='#2a1d18';g.beginPath();g.moveTo(432,hy-10);g.quadraticCurveTo(420,hy-150,560,hy-140);g.quadraticCurveTo(665,hy-130,650,hy-10);g.quadraticCurveTo(640,hy-80,590,hy-95);g.quadraticCurveTo(500,hy-70,440,hy-60);g.fill();
+ // brows
+ const br=mouth>.5?-6:0;g.strokeStyle='#2a1d18';g.lineWidth=10;g.lineCap='round';g.beginPath();g.moveTo(475,hy-38+br);g.lineTo(520,hy-44+br);g.moveTo(560,hy-44+br);g.lineTo(605,hy-38+br);g.stroke();
+ // eyes blink
+ const bk=((t%3.7)<.12)?.1:1;g.fillStyle='#fff';g.beginPath();g.ellipse(497,hy-8,16,14*bk,0,0,7);g.ellipse(583,hy-8,16,14*bk,0,0,7);g.fill();
+ if(bk>.5){circ(500,hy-7,8,'#221a16');circ(586,hy-7,8,'#221a16')}
+ // glasses
+ g.strokeStyle='#111';g.lineWidth=6;rr(462,hy-34,72,56,16,null,'#111',6);rr(546,hy-34,72,56,16,null,'#111',6);g.beginPath();g.moveTo(534,hy-10);g.lineTo(546,hy-10);g.stroke();
+ // nose
+ g.strokeStyle='#c98f6c';g.lineWidth=6;g.beginPath();g.moveTo(540,hy+5);g.quadraticCurveTo(528,hy+40,545,hy+42);g.stroke();
+ // mouth
+ const mo=mouth*34;g.fillStyle='#5a1f22';g.beginPath();g.ellipse(540,hy+72,30+mouth*6,4+mo/2,0,0,7);g.fill();if(mo>8){g.fillStyle='#fff';g.fillRect(515,hy+68-mo/2,50,6)}
+ // desk
+ const dk=g.createLinearGradient(0,1000,0,1250);dk.addColorStop(0,'#8a5a3c');dk.addColorStop(1,'#5e3b27');g.fillStyle=dk;g.fillRect(0,1010,W,240);g.fillStyle='#a36e4a';g.fillRect(0,1000,W,22);
+ // laptop (back) with logo glow
+ g.fillStyle='#c9ccd6';g.beginPath();g.moveTo(170,1005);g.lineTo(200,850);g.lineTo(390,850);g.lineTo(380,1005);g.fill();circ(290,925,16,'rgba(255,255,255,.8)');
+ // mug
+ rr(780,920,80,90,12,'#f4f1ea');g.strokeStyle='#f4f1ea';g.lineWidth=12;g.beginPath();g.arc(865,965,22,-1.4,1.4);g.stroke();txt('$',820,985,40,'#2fbf71');
+ for(let k=0;k<3;k++){g.strokeStyle=`rgba(255,255,255,${.25-k*.05})`;g.lineWidth=5;g.beginPath();const sy=900-((t*40+k*30)%90);g.moveTo(805+k*15,sy+30);g.quadraticCurveTo(795+k*15,sy+15,810+k*15,sy);g.stroke()}
+ // hands / gesture
+ const gest=Math.sin(t*3.1)*mouth,point=t>13.4;
+ const hand=(sx,ex,ey,rot)=>{g.strokeStyle='#232a52';g.lineWidth=58;g.lineCap='round';g.beginPath();g.moveTo(sx,800+bob);g.quadraticCurveTo((sx+ex)/2+(sx<540?-50:50),930,ex,ey);g.stroke();circ(ex,ey,36,'#e8b48c')};
+ hand(390,430-gest*30,990-Math.max(0,gest)*80);
+ if(point){const p=eo((t-13.4)/.3);hand(690,700+p*20,990-p*260);g.fillStyle='#e8b48c';g.save();g.translate(720,730-0+(1-p)*260);g.fillRect(-9,-60,18,60);g.restore()}else hand(690,650+gest*40,985-Math.max(0,-gest)*70);
+}
+function bubbleCaption(t){
+ const L=LINES.find(l=>t>=l[0]&&t<l[1]+.25);if(!L)return;const a=eo((t-L[0])/.2);
+ const words=L[2].split(' '),sp=(L[1]-L[0])/words.length,shown=Math.min(words.length,Math.floor((t-L[0])/sp)+1);
+ g.font=`800 50px ${F}`;g.textAlign='center';const lines=[];let cur='';words.forEach((w,i)=>{const test=cur?cur+' '+w:w;if(g.measureText(test).width>900){lines.push(cur);cur=w}else cur=test});lines.push(cur);
+ let wi=0;g.globalAlpha=a;lines.forEach((ln,li)=>{const y=1340+li*66;const tw=g.measureText(ln).width;let x=540-tw/2;ln.split(' ').forEach(w=>{const ww=g.measureText(w+' ').width;const on=wi<shown,act=wi==shown-1;g.textAlign='left';g.lineWidth=10;g.strokeStyle='#000';g.strokeText(w,x,y);g.fillStyle=act?'#ffd84a':on?'#fff':'rgba(255,255,255,.35)';g.fillText(w,x,y);x+=ww;wi++})});g.globalAlpha=1;
+}
+function overlay(t){
+ // 0-3.2 hook
+ if(t<3.3){const a=eb(t/.35);g.save();g.translate(540,130);g.scale(a,a);g.rotate(-.04);rr(-330,-60,660,110,20,'#ff3b4e');txt('STOP SCROLLING',0,20,64,'#fff');g.restore();
+  if(t>1.2){const b=eb((t-1.2)/.35);g.save();g.translate(540,1560);g.scale(b,b);rr(-400,-70,800,150,26,'#fff');txt('Not investing',0,-5,48,'#1a1d33');txt('costs you money',0,55,48,'#ff3b4e');g.restore()}}
+ // 3.3-7.6 $100/mo
+ if(t>=3.3&&t<7.6){const a=eb((t-3.3)/.4);g.save();g.translate(540,1580);g.scale(a,a);rr(-420,-110,840,220,30,'#fff');txt('$100 / month',-150,-15,62,'#1a1d33');txt('into S&P 500',-150,55,40,'#2f5bd8',700);
+  rr(120,-85,190,170,20,'#2f5bd8');txt('2015',215,-10,58,'#fff');txt('→ 2025',215,50,34,'#cfe0ff',700);g.restore();
+  for(let k=0;k<6;k++){const tt=t-3.6-k*.55;if(tt<0)continue;const y=-80+tt*900;if(y>1250)continue;g.save();g.translate(180+k*140,y);circ(0,0,40,'#f5c542');circ(0,0,30,'#e8a92a');txt('$',0,16,40,'#fff8d0');g.restore()}}
+ // 7.6-10.3 bars
+ if(t>=7.6&&t<10.4){const a=eo((t-7.6)/.35),p=eo((t-8.0)/1.4);rr(80,1480,920,380,30,`rgba(255,255,255,${.97*a})`);g.globalAlpha=a;
+  const bh=260,b1=bh*.52*p,b2=bh*p;g.fillStyle='#9aa1b8';g.fillRect(250,1810-b1,200,b1);g.fillStyle='#2fbf71';g.fillRect(630,1810-b2,200,b2);
+  txt('$'+Math.round(12000*p).toLocaleString('en-US'),350,1790-b1,44,'#1a1d33');txt('$'+Math.round(23000*p).toLocaleString('en-US'),730,1790-b2,48,'#1a9a58');
+  txt('You put in',350,1845,30,'#666',700);txt('Worth today',730,1845,30,'#666',700);g.globalAlpha=1;
+  if(t>9.2){const s=eb((t-9.2)/.3);g.save();g.translate(500,1560);g.scale(s,s);g.rotate(-.1);rr(-110,-45,220,90,45,'#2fbf71');txt('+92%',0,18,48,'#fff');g.restore()}}
+ // 10.4-13.4 inflation
+ if(t>=10.4&&t<13.45){const a=eb((t-10.4)/.35),p=eo((t-11.0)/1.8);g.save();g.translate(540,1600);g.scale(a,a);rr(-420,-130,840,260,30,'#fff');
+  const n=8,keep=Math.round(n*(1-.25*p));for(let k=0;k<n;k++){const alive=k<keep;g.globalAlpha=alive?1:clamp(1-(p*n*.25-(n-1-k))*1.5,0.08,1);rr(-380+k*62,-60-(k%2)*10,52,110,8,'#5fbf6a');txt('$',-354+k*62,12-(k%2)*10,34,'#2d6b33');}g.globalAlpha=1;
+  txt('-25%',260,5,76,'#ff3b4e');txt('buying power',260,55,30,'#999',700);g.restore()}
+ // 13.5 start today
+ if(t>=13.45){const a=eb((t-13.45)/.35);g.save();g.translate(540,1600);g.scale(a,a);rr(-400,-100,800,200,40,'#2fbf71');txt('START TODAY',0,28,86,'#fff');g.restore()}
+}
+function renderAt(t){const f=Math.min(ENV.length-1,Math.floor(t*30));const m=(ENV[f]+ (ENV[Math.max(0,f-1)]))/2;
+ g.fillStyle='#0d1020';g.fillRect(0,0,W,H);
+ // slow camera push-in
+ const z=1+t*.006;g.save();g.translate(540,700);g.scale(z,z);g.translate(-540,-700);scene(t,m);g.restore();
+ g.fillStyle='#0d1020';g.fillRect(0,1250,W,670);bubbleCaption(t);overlay(t);
+ txt('@yourchannel',540,1900,24,'rgba(255,255,255,.3)',500);}
+window.renderAt=renderAt;
+if(!location.search.includes('render')){const s=performance.now();(function L(n){renderAt(((n-s)/1000)%15);requestAnimationFrame(L)})(s)}
+</script></body></html>
