@@ -1,6 +1,6 @@
 import {Camera, Circle, Line, Node, Path, Rect, Txt, makeScene2D} from '@motion-canvas/2d';
 import {
-  all, createRef, createSignal, delay, easeInCubic, easeInOutCubic, easeInOutSine, easeOutBack,
+  all, cancel, createRef, createSignal, delay, easeInCubic, easeInOutCubic, easeInOutSine, easeOutBack,
   easeOutCubic, linear, sequence, spawn, useRandom, useTime, waitFor, ThreadGenerator,
 } from '@motion-canvas/core';
 import {LAND, proj} from '../land';
@@ -76,7 +76,7 @@ function bust(o: BustOpts) {
         {o.rifle ? <Line points={[[-128, -320], [120, -30]]} stroke={'#4e3620'} lineWidth={14} /> : null}
       </Node>
       <Node y={() => -520 + headY()} rotation={headRot}>
-        <Rect y={120} width={78} height={70} fill={skinD} />
+        <Rect y={165} width={80} height={150} fill={skinD} />
         <Circle x={-94} y={10} size={52} fill={skinD} /><Circle x={94} y={10} size={52} fill={skinD} />
         <Rect width={188} height={222} radius={88} fill={skin} />
         <Circle x={-52} y={40} size={40} fill={'#f0a58a'} opacity={0.35} /><Circle x={52} y={40} size={40} fill={'#f0a58a'} opacity={0.35} />
@@ -376,7 +376,7 @@ export default makeScene2D(function* (view) {
 
   // ======== S6: inside the dugout — fish, bark clothes, fear ========
   yield* at(T[6] - 0.3);
-  const d = bust({x: 40, y: 1000, s: 1.2, hat: 'none', hair: '#2e231c', uni: '#9a7a4e', uniD: '#7c6038', beard: true});
+  const d = bust({x: 40, y: 1000, s: 1.2, hat: 'none', hair: '#2e231c', uni: '#9a7a4e', uniD: '#7c6038'});
   const fishN = (x: number) => (<Node x={x} y={-330}><Path data={'M -40 0 Q 0 -30 40 0 Q 0 30 -40 0 Z'} fill={'#7fb6d6'} rotation={90} /><Path data={'M 0 38 L -16 62 L 16 62 Z'} fill={'#7fb6d6'} /></Node>);
   const lamp = createSignal(1);
   const s6 = (<Node>
@@ -421,8 +421,7 @@ export default makeScene2D(function* (view) {
   const s7 = (<Node>
     <Node ref={par}>{jungle(20, C.sky, 5200)}</Node>
     {squad.map(s => s.node)}
-    {grassBand(820, 7, C.grassD, 150, 5200)}{grassBand(900, 8, C.grass, 120, 5200)}
-    <Rect y={1250} width={1400} height={700} fill={C.grass} />
+    {bushes(880, 7, [C.jDark, C.jNear, C.jDeep], 1.15, 5200)}
   </Node>) as Node;
   yield* go(() => { oc.scale(0); toStage(s7); });
   squad.forEach((s, i) => { s.lookX(1); s.headRot(4); s.LX(-120); s.RX(120); s.LY(-60); s.RY(-60); });
@@ -483,7 +482,8 @@ export default makeScene2D(function* (view) {
   o.lookX(1); cm.lookX(-1); o.brow(-0.4);
   const cwalk = spawn(function* (): ThreadGenerator { let ph = 0; while (true) { ph += 0.17; cm.root().y(980 - Math.abs(Math.sin(ph)) * 20); yield; } });
   yield* cm.root().x(260, 1.8, easeOutCubic);
-  cm.root().y(980);
+  cancel(cwalk);
+  yield* cm.root().y(980, 0.2);
   yield* all(cm.hands.L(-260, -300, 0.5), cm.hands.R(-40, -300, 0.5), order.scale(1, 0.5, easeOutBack));
   yield* at(55.6);
   const cancel = stampN('CANCELLED', '#2e7d32', 34); cancel.rotation(-14); cancel.y(40); order.add(cancel);
@@ -502,7 +502,7 @@ export default makeScene2D(function* (view) {
 
   // ======== S11: walks out of the jungle to the sea ========
   yield* at(T[11] - 0.4);
-  const n = bust({x: -30, y: 960, s: 1.05, uni: '#8a8254', beard: true});
+  const n = bust({x: -30, y: 960, s: 1.05, uni: '#8a8254'});
   const world = createRef<Node>();
   const s11 = (<Node>
     <Rect width={1400} height={2400} fill={'#ffd7a6'} />
@@ -514,8 +514,7 @@ export default makeScene2D(function* (view) {
       <Path data={'M 300 520 Q 1500 470 4000 540 L 4000 2000 L 300 2000 Z'} fill={C.sand} />
     </Node>
     {n.node}
-    <Node ref={createRef()}>{grassBand(900, 40, C.grassD, 160, 5200)}</Node>
-    <Rect y={1280} width={1400} height={700} fill={C.grassD} />
+    {bushes(900, 40, [C.jDark, C.jNear, C.jDeep], 1.15, 1600)}
   </Node>) as Node;
   yield* go(() => { nc.scale(0); toStage(s11); });
   n.lookX(1); n.headRot(4); n.LX(-120); n.RX(120); n.LY(-60); n.RY(-60);
