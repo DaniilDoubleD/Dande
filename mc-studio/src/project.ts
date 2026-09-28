@@ -1,4 +1,4 @@
 import {makeProject} from '@motion-canvas/core';
-import holdouts from './scenes/holdouts?scene';
+import holdouts2 from './scenes/holdouts2?scene';
 import vo from './audio/vo.wav';
-export default makeProject({scenes: [holdouts], audio: vo});
+export default makeProject({scenes: [holdouts2], audio: vo});
