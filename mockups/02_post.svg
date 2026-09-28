@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="941" height="1672" viewBox="0 0 941 1672">
+<g id="Background" inkscape:label="Background" inkscape:groupmode="layer">
+<rect width="941" height="1672" fill="#000"/>
+</g>
+<g id="StatusBar" inkscape:label="StatusBar" inkscape:groupmode="layer">
+<text x="52" y="41" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="500" fill="#fff" fill-opacity="1" text-anchor="start">12:00 PM</text><g id="signal"><rect x="743" y="36" width="6" height="6" rx="1.5" fill="#fff"/><rect x="752" y="30" width="6" height="12" rx="1.5" fill="#fff"/><rect x="761" y="24" width="6" height="18" rx="1.5" fill="#fff"/><rect x="770" y="18" width="6" height="24" rx="1.5" fill="#fff"/></g><g id="wifi" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"><path d="M794 24a22 22 0 0 1 30 0"/><path d="M799 30a14 14 0 0 1 20 0"/><circle cx="809" cy="37" r="2.5" fill="#fff"/></g><g id="battery"><rect x="840" y="20" width="46" height="22" rx="6" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2"/><rect x="889" y="27" width="3" height="8" rx="1" fill="#fff" fill-opacity=".6"/><rect x="843" y="23" width="6" height="16" rx="3" fill="#EB5757"/></g>
+</g>
+<g id="Header" inkscape:label="Header" inkscape:groupmode="layer">
+<circle id="Header_Avatar" cx="77" cy="112" r="37" fill="none" stroke="#fff" stroke-width="3"/><text x="136" y="120" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="27" font-weight="600" fill="#fff" fill-opacity="1" text-anchor="start">@alex.run</text>
+</g>
+<g id="Btn_FollowTop" inkscape:label="Btn_FollowTop" inkscape:groupmode="layer">
+<rect x="769" y="83" width="134" height="58" rx="12" fill="none" stroke="#fff" stroke-width="2"/><text x="836" y="120" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="21" font-weight="500" fill="#fff" fill-opacity="1" text-anchor="middle">Follow</text>
+</g>
+<g id="ActionRail" inkscape:label="ActionRail" inkscape:groupmode="layer">
+<g id="Rail_Like" inkscape:label="Rail_Like" inkscape:groupmode="layer">
+<path d="M870 963c-36-26-34-50-16-56 8-2 14 2 16 8 2-6 8-10 16-8 18 6 20 30-16 56z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="870" y="991" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="middle">52</text>
+</g>
+<g id="Rail_Comments" inkscape:label="Rail_Comments" inkscape:groupmode="layer">
+<path d="M852 1097l-8 12 15-5a28 27 0 1 0-7-7z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="870" y="1132" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="middle">3</text>
+</g>
+<g id="Rail_Saves" inkscape:label="Rail_Saves" inkscape:groupmode="layer">
+<path d="M851 1192h38v52l-19-17-19 17z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="870" y="1273" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="middle">4</text>
+</g>
+<g id="Rail_Shares" inkscape:label="Rail_Shares" inkscape:groupmode="layer">
+<path d="M842 1386c4-26 22-38 42-38v-14l16 26-16 26v-14c-20 0-34 4-42 14z" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/><text x="870" y="1415" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="middle">1</text>
+</g>
+</g>
+<g id="Comments" inkscape:label="Comments" inkscape:groupmode="layer">
+<g id="Comment_1" inkscape:label="Comment_1" inkscape:groupmode="layer">
+<rect x="40" y="1049" width="603" height="90" rx="14" fill="#141414" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/><circle id="Comment_1_Avatar" cx="85" cy="1094" r="25" fill="none" stroke="#fff" stroke-width="2"/><text x="138" y="1083" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#fff" fill-opacity="0.65" text-anchor="start">run.dad</text><text x="138" y="1117" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">5:30 AM? Respect.</text>
+</g><g id="Comment_2" inkscape:label="Comment_2" inkscape:groupmode="layer">
+<rect x="40" y="1156" width="603" height="90" rx="14" fill="#141414" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/><circle id="Comment_2_Avatar" cx="85" cy="1201" r="25" fill="none" stroke="#fff" stroke-width="2"/><text x="138" y="1190" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#fff" fill-opacity="0.65" text-anchor="start">slowrunner23</text><text x="138" y="1224" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">Looking good, man. Keep it up.</text>
+</g><g id="Comment_3" inkscape:label="Comment_3" inkscape:groupmode="layer">
+<rect x="40" y="1264" width="603" height="90" rx="14" fill="#141414" stroke="#fff" stroke-opacity=".35" stroke-width="1.5"/><circle id="Comment_3_Avatar" cx="85" cy="1309" r="25" fill="none" stroke="#fff" stroke-width="2"/><text x="138" y="1298" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="20" font-weight="400" fill="#fff" fill-opacity="0.65" text-anchor="start">pace_unknown</text><text x="138" y="1332" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">Are you following a specific training plan?</text>
+</g>
+</g>
+<g id="Caption" inkscape:label="Caption" inkscape:groupmode="layer">
+<text x="41" y="1411" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="25" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">Day 8. Getting into the routine. 5:30 AM wake-ups, training,</text><text x="41" y="1446" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="25" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">work, chicken and rice. Repeat.</text><text x="41" y="1481" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="25" font-weight="400" fill="#fff" fill-opacity="1" text-anchor="start">One day at a time. Godspeed!</text>
+</g>
+<g id="Hashtags" inkscape:label="Hashtags" inkscape:groupmode="layer">
+<text x="41" y="1526" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="24" font-weight="400" fill="#fff" fill-opacity="0.8" text-anchor="start">#RoadToMasters #RunningJourney #SprintTraining #Day8 #Godspeed</text>
+</g>
+<g id="Sound" inkscape:label="Sound" inkscape:groupmode="layer">
+<g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"><path d="M50 1576v-20l16-4v20"/><circle cx="47" cy="1577" r="4"/><circle cx="63" cy="1573" r="4"/></g><text x="91" y="1576" font-family="Inter, 'SF Pro Text', Helvetica, Arial, sans-serif" font-size="21" font-weight="400" fill="#fff" fill-opacity="0.7" text-anchor="start">Original Sound - @alex.run</text>
+</g>
+<g id="HomeIndicator" inkscape:label="HomeIndicator" inkscape:groupmode="layer">
+<rect x="343" y="1637" width="256" height="8" rx="4" fill="#fff"/>
+</g>
+</svg>
