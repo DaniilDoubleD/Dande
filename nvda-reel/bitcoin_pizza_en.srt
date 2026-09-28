@@ -1,0 +1,41 @@
+1
+00:00:00,400 --> 00:00:03,130
+May 2010. Jacksonville, Florida.
+
+2
+00:00:03,580 --> 00:00:06,350
+A programmer named Laszlo Hanyecz is hungry.
+
+3
+00:00:06,800 --> 00:00:11,480
+He posts on a bitcoin forum:
+"I will pay ten thousand bitcoins for two pizzas."
+
+4
+00:00:11,930 --> 00:00:15,360
+Someone takes the deal.
+Two large pizzas arrive at his door.
+
+5
+00:00:15,810 --> 00:00:19,500
+Back then, those ten thousand bitcoins
+were worth about forty dollars.
+
+6
+00:00:19,950 --> 00:00:22,080
+But the price of bitcoin kept climbing.
+
+7
+00:00:22,530 --> 00:00:32,350
+In 2013, those pizzas were worth seven million dollars.
+In 2017, $190 million. In 2021, almost $700 million.
+
+8
+00:00:32,800 --> 00:00:36,000
+Today, those two pizzas are worth
+over a billion dollars.
+
+9
+00:00:36,450 --> 00:00:42,760
+The most expensive dinner in history. Every May 22nd,
+the crypto world celebrates Bitcoin Pizza Day.

@@ -15,6 +15,9 @@
 - No subtitles burned in unless asked; deliver separate .srt for YouTube.
 - Always also export a no-voice version.
 
+## Charts
+- Charts and counters must be smooth: interpolate with smooth curves (no random noise), ease every tween, camera follows with soft easing (no jumps).
+
 ## Timing
 - Generate VO first (Kokoro EN voice `am_liam` (user's pick), model files from github.com/thewh1teagle/kokoro-onnx releases), record per-sentence start/end, and key every action to the exact phrase that mentions it.
 
