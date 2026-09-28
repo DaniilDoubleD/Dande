@@ -62,6 +62,7 @@ function bust(o: BustOpts) {
           <Line points={[[-150, -20], [170, -560]]} stroke={'#5a3a22'} lineWidth={22} lineCap={'round'} />
           <Line points={[[100, -440], [185, -585]]} stroke={'#3d3d44'} lineWidth={12} lineCap={'round'} />
         </Node>) : null}
+      <Rect y={() => -372 + headY()} width={82} height={70} radius={10} fill={skinD} />
       <Node ref={torso} scale={() => [1, 1 + breath() * 0.012]}>
         <Path data={'M -160 -250 Q -165 -335 -95 -345 L 95 -345 Q 165 -335 160 -250 L 142 40 L -142 40 Z'} fill={uni} />
         <Path data={'M -48 -345 L 0 -268 L 48 -345 Z'} fill={skinD} />
@@ -75,9 +76,8 @@ function bust(o: BustOpts) {
         <Rect y={-18} width={40} height={30} radius={4} fill={'#c9b56a'} />
         {o.rifle ? <Line points={[[-128, -320], [120, -30]]} stroke={'#4e3620'} lineWidth={14} /> : null}
       </Node>
-      <Node y={() => -520 + headY()} rotation={headRot}>
-        <Rect y={165} width={80} height={150} fill={skinD} />
-        <Circle x={-94} y={10} size={52} fill={skinD} /><Circle x={94} y={10} size={52} fill={skinD} />
+      <Node y={() => -466 + headY()} rotation={headRot}>
+                <Circle x={-94} y={10} size={52} fill={skinD} /><Circle x={94} y={10} size={52} fill={skinD} />
         <Rect width={188} height={222} radius={88} fill={skin} />
         <Circle x={-52} y={40} size={40} fill={'#f0a58a'} opacity={0.35} /><Circle x={52} y={40} size={40} fill={'#f0a58a'} opacity={0.35} />
         {[-1, 1].map(sd => (
@@ -176,6 +176,7 @@ function jungle(seed: number, sky = C.sky, w = 2800) {
 
 export default makeScene2D(function* (view) {
   view.fill(C.cream);
+  const pinLayer = createRef<Node>();
   const cam = createRef<Camera>(), mapLayer = createRef<Node>(), stage = createRef<Node>(), ui = createRef<Node>();
   const dip = createRef<Rect>(), dusk = createRef<Rect>(), black = createRef<Rect>();
   const year = createSignal(1945), yearBox = createRef<Node>();
@@ -196,20 +197,23 @@ export default makeScene2D(function* (view) {
     </Node>,
   );
   view.add(<Node ref={stage} opacity={0} />);
+  mapLayer().add(<Node ref={pinLayer} />);
   view.add(<Rect ref={dusk} width={1080} height={1920} fill={'#2a1f45'} opacity={0} />);
   view.add(<Node ref={ui} />);
   view.add(<Rect ref={dip} width={1080} height={1920} fill={C.cream} opacity={0} />);
   view.add(<Rect ref={black} width={1080} height={1920} fill={'#000'} opacity={0} />);
 
+  const w2s = (w: V): V => [(w[0] - cam().position.x()) * cam().zoom(), (w[1] - cam().position.y()) * cam().zoom()];
   const pins: Record<string, Node> = {};
   const addPin = (k: string, ll: V, label: string, col = C.red) => {
-    const n = (<Node position={proj(...ll)} scale={0}><Node scale={() => 1 / cam().zoom()}>
+    const w = proj(...ll);
+    const n = (<Node position={() => [(w[0] - cam().position.x()) * cam().zoom(), (w[1] - cam().position.y()) * cam().zoom()]} scale={0}><Node>
       <Circle size={40} stroke={'#ffd23f'} lineWidth={6} />
       <Path data={'M 0 0 C -10 -30 -40 -50 -40 -80 A 40 40 0 1 1 40 -80 C 40 -50 10 -30 0 0 Z'} fill={col} stroke={C.ink} lineWidth={5} />
       <Circle y={-82} size={26} fill={'#fff'} />
       <Rect y={-172} height={62} width={label.length * 25 + 50} radius={14} fill={'#fff'} stroke={C.ink} lineWidth={5}><Txt text={label} fontFamily={F} fontWeight={900} fontSize={34} fill={C.ink} /></Rect>
     </Node></Node>) as Node;
-    cam().add(n); pins[k] = n;
+    pinLayer().add(n); pins[k] = n;
   };
   const GUAM: V = [144.79, 13.45], LUB: V = [120.12, 13.82], MOR: V = [128.42, 2.35], TOKYO: V = [139.7, 35.7];
   addPin('guam', GUAM, 'GUAM'); addPin('lub', LUB, 'LUBANG'); addPin('mor', MOR, 'MOROTAI'); addPin('tokyo', TOKYO, 'TOKYO', '#fff');
@@ -447,22 +451,17 @@ export default makeScene2D(function* (view) {
   // ======== S9: commander flies in, cancels the order ========
   yield* at(T[9] - 0.4);
   yield* go(() => { toMap(); yearBox().scale(0); cam().position(proj(130, 24)); cam().zoom(0.95); });
-  const route = (<Line points={[proj(...TOKYO), proj(127, 29), proj(...LUB)]} radius={500} stroke={C.ink} lineWidth={() => 8 / cam().zoom()} lineDash={[24, 18]} end={0} />) as Line;
-  cam().add(route);
-  const mp = (<Node scale={() => 0.42 / cam().zoom()}><Path data={'M -40 -12 L -120 -150 L -70 -150 L 60 -12 Z'} fill={'#aeb6c2'} /><Path data={'M -40 12 L -120 150 L -70 150 L 60 12 Z'} fill={'#aeb6c2'} /><Rect width={320} height={64} radius={32} fill={'#cfd5de'} /></Node>) as Node;
-  cam().add(mp); mp.position(proj(...TOKYO));
+  const rA = proj(...TOKYO), rB = proj(127, 29), rC = proj(...LUB);
+  const bez = (u: number): V => [(1 - u) ** 2 * rA[0] + 2 * (1 - u) * u * rB[0] + u * u * rC[0], (1 - u) ** 2 * rA[1] + 2 * (1 - u) * u * rB[1] + u * u * rC[1]];
+  const routeEnd = createSignal(0);
+  const route = (<Line points={() => Array.from({length: 41}, (_, i) => w2s(bez(i / 40 * Math.max(0.001, routeEnd()))))} stroke={C.ink} lineWidth={8} lineDash={[24, 18]} lineCap={'round'} />) as Line;
+  pinLayer().add(route);
+  const mp = (<Node scale={0.42}><Path data={'M -40 -12 L -120 -150 L -70 -150 L 60 -12 Z'} fill={'#aeb6c2'} /><Path data={'M -40 12 L -120 150 L -70 150 L 60 12 Z'} fill={'#aeb6c2'} /><Rect width={320} height={64} radius={32} fill={'#cfd5de'} /></Node>) as Node;
+  pinLayer().add(mp); mp.position(() => w2s(bez(routeEnd())));
+  mp.rotation(() => { const a2 = w2s(bez(Math.max(0, routeEnd() - 0.01))), b2 = w2s(bez(Math.min(1, routeEnd() + 0.01))); return Math.atan2(b2[1] - a2[1], b2[0] - a2[0]) * 180 / Math.PI; });
   year(1974);
   yield* all(pop(pins.tokyo), showYear());
-  spawn(route.end(1, 2.6, easeInOutSine));
-  yield* (function* (): ThreadGenerator {
-    const [A, B, Cc] = [proj(...TOKYO), proj(127, 29), proj(...LUB)]; const t0 = useTime();
-    while (useTime() - t0 < 2.6) {
-      const u = easeInOutSine((useTime() - t0) / 2.6);
-      const x = (1 - u) ** 2 * A[0] + 2 * (1 - u) * u * B[0] + u * u * Cc[0], yy = (1 - u) ** 2 * A[1] + 2 * (1 - u) * u * B[1] + u * u * Cc[1];
-      const dx = 2 * (1 - u) * (B[0] - A[0]) + 2 * u * (Cc[0] - B[0]), dy = 2 * (1 - u) * (B[1] - A[1]) + 2 * u * (Cc[1] - B[1]);
-      mp.position([x, yy]); mp.rotation(Math.atan2(dy, dx) * 180 / Math.PI); yield;
-    }
-  })();
+  yield* routeEnd(1, 2.6, easeInOutSine);
   yield* at(53.2);
   const o = bust({x: -250, y: 980, s: 1.0, rifle: true});
   const cm = bust({x: 900, y: 980, s: 1.0, hat: 'officer', hair: '#e2e2e2', glasses: true, mustache: true, uni: '#6f6a55', uniD: '#57533f'});
