@@ -1,0 +1,3 @@
+{"name":"mc-studio","private":true,"scripts":{"dev":"vite"},
+"dependencies":{"@motion-canvas/core":"^3.17.2","@motion-canvas/2d":"^3.17.2"},
+"devDependencies":{"@motion-canvas/ui":"^3.17.2","@motion-canvas/vite-plugin":"^3.17.2","typescript":"^5.0.0","vite":"^5.0.0"}}
