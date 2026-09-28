@@ -6,6 +6,6 @@ const b=await chromium.launch();const p=await b.newPage({viewport:{width:1600,he
 p.on('pageerror',e=>console.log('PAGEERR',e.message));p.on('console',m=>{if(m.type()==='error'&&!m.text().includes('Failed to load resource'))console.log('CONSOLE',m.text())});
 await p.goto('http://localhost:9000/');await p.waitForTimeout(4000);
 await p.click('button:has-text("RENDER")');
-let last=-1,stable=0;
-while(stable<6){await p.waitForTimeout(1000);const n=count();if(n===last&&n>0)stable++;else stable=0;last=n}
+let last=-1,stable=0,waited=0;
+while(stable<6){await p.waitForTimeout(1000);waited++;const n=count();if(n===0&&waited>90){console.log('NO FRAMES - scene error');await b.close();process.exit(1)}if(n===last&&n>0)stable++;else stable=0;last=n}
 console.log('frames',last);await b.close();

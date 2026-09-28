@@ -486,8 +486,8 @@ export default makeScene2D(function* (view) {
   yield* cm.root().y(980, 0.2);
   yield* all(cm.hands.L(-260, -300, 0.5), cm.hands.R(-40, -300, 0.5), order.scale(1, 0.5, easeOutBack));
   yield* at(55.6);
-  const cancel = stampN('CANCELLED', '#2e7d32', 34); cancel.rotation(-14); cancel.y(40); order.add(cancel);
-  yield* slam(cancel);
+  const cancelSt = stampN('CANCELLED', '#2e7d32', 34); cancelSt.rotation(-14); cancelSt.y(40); order.add(cancelSt);
+  yield* slam(cancelSt);
   yield* at(56.4);
   yield* all(o.hands.R(70, -560, 0.45, easeOutBack), o.brow(0, 0.3));
   yield* waitFor(0.7);
