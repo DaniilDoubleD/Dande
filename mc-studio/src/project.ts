@@ -1,4 +1,4 @@
 import {makeProject} from '@motion-canvas/core';
-import pizza from './scenes/pizza?scene';
-import vo from './audio/vo_pizza.wav';
-export default makeProject({scenes: [pizza], audio: vo});
+import newyear from './scenes/newyear?scene';
+import music from './audio/music_ny.wav';
+export default makeProject({scenes: [newyear], audio: music});
