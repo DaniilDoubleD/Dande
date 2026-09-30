@@ -2,7 +2,8 @@
 
 ## Where things are
 - `nvda-reel/` — finished reels (HTML canvas renders), voiceovers, music, scripts.
-- `mc-studio/` — Motion Canvas project (preferred for new videos). Skill: `.claude/skills/motion-canvas/`.
+- **New videos: Remotion + skill `.claude/skills/remotion-motion-graphics/` (user-provided; follow its 10 rules and pre-delivery checklist).** Official Remotion skills also in `.claude/skills/remotion-*`. Chromium: `/opt/pw-browsers` (use headless_shell if needed).
+- `mc-studio/` — older Motion Canvas project (holdouts, pizza, new-year scenes). Skill: `.claude/skills/motion-canvas/`.
 - Render: `cd mc-studio && npm install && ./render.sh out.mp4 [voice.wav]` (headless: vite + Playwright clicks RENDER, ffmpeg via `pip install imageio-ffmpeg`).
 - Default format: vertical 1080x1920, 30 fps (set in `mc-studio/src/project.meta`).
 
